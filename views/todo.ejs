@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+
+   <!-- CDN for font-awesome -->
+    <script src="https://kit.fontawesome.com/749416ed71.js" crossorigin="anonymous"></script>
+    
+    <!-- External css -->
+     <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+     <!--The main container which consist of all elements of Todo list-->
+    <div id="main-container">  
+        <div id="logo"><img src="/images/To Do Logo-01.png" alt=""></div>
+        <!--Form Heading-->
+        <h1 class="heading">Plan Your Day</h1>       
+            <form action="/create-task" method="POST" id="add-task">
+                <div id="form-input">
+                    <div id="description">      <!--Description div-->
+                        <label for="task" class="mar-left">DESCRIPTION</label>
+                        <input type="text" id ="task" class = "mar-left" class = "input" name="description" placeholder="What do you want to do" required>
+                    </div>
+                    <div id="info">
+                        <div id="category">     <!--Category checkbox-->
+                            <label for="task-category">CHOOSE A CATEGORY</label>
+                            <select id="task-category" name="category">
+                                <option value="none">Choose a category</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Work">Work</option>
+                                <option value="School">School</option>
+                                <option value="Bank">Bank</option>
+                                <option value="Other">Other</option>
+                              </select>
+                        </div>
+                        <div id="date">             <!--Date field-->
+                            <label for="task-date">DUE DATE</label>
+                            <input type="date" id="task-date" class="input" name="date" placeholder="dd/mm/yyyy" required>
+                        </div>
+                    </div>
+                </div>
+            </form>
+                <div id="buttons">
+                    <div id="add-div">              <!--Butoon field-->
+                        <button id="add" type="submit" form="add-task">   <!--Add button-->
+                            <i class="fas fa-plus"></i>
+                            ADD TASK
+                        </button>
+                    </div>
+                   <div id="delete-div">
+                    <button id="delete" type="submit" form="delete-task">     <!--Delete button-->
+                        <i class="fas fa-trash-alt"></i>
+                        DELETE
+                    </button>
+                   </div>
+                </div>
+        <form action="/delete-task" method="POST" id="delete-task">    <!--Form for checkbox-->
+            <div id="list">
+                <ul>
+                    <%for(let i of task_list){%>                   <!--Loop for printing tasks-->
+                        <li class="hover-change">
+                        
+                            <div class="flex-box">
+                                    <div class="desc-box">
+                                        <label class="container">
+                                            <input type="checkbox" id="checkbox" name="<%=i._id%>">
+                                            <h2 class="desc-size"><%=i.description%></h2>       <!--Prints Description-->
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="cat-box">           <!--For printing categories-->
+                                            <%if(i.category=="Work"){%>
+                                                <h3 class="category-list" style="background-color:#007bff;">
+                                                    <span>
+                                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                                        <%=i.category%></span>    
+                                                </h3>
+                                            <%}%>
+                                            <%if(i.category=="Personal"){%>
+                                                <h3 class="category-list" style="background-color:#ffc107;">
+                                                    <span>
+                                                        <i class="fa fa-male" aria-hidden="true"></i>
+                                                        <%=i.category%></span>    
+                                                </h3>
+                                            <%}%>
+                                            <%if(i.category=="School"){%>
+                                                <h3 class="category-list" style="background-color:#17a2b8;">
+                                                    <span >
+                                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                        <%=i.category%></span>   
+                                                </h3> 
+                                            <%}%>
+                                            <%if(i.category=="Bank"){%>
+                                                <h3 class="category-list" style="background-color:#6c757d;">
+                                                    <span>
+                                                        <i class="fa fa-university" aria-hidden="true"></i>
+                                                        <%=i.category%></span>   
+                                                </h3> 
+                                            <%}%>
+                                            <%if(i.category=="Other"){%>
+                                                <h3 class="category-list" style="background-color:#28a745;">
+                                                    <span>
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        <%=i.category%></span>   
+                                                </h3> 
+                                            <%}%>
+                                            
+                                    </div>
+                            </div>
+                            <h4 class="date-show">          <!--For printing Date-->
+                                <i class="far fa-calendar-alt"></i>
+                                <%=i.date%>
+                            </h4>
+                        </li>
+                    <%}%>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascript/script.js"></script>
+</body>
+</html>
